@@ -1,9 +1,12 @@
 import express from 'express'; //Подключение express
 import jwt from 'jsonwebtoken'; //Подключение jsonwebtoken
 import mongoose from "mongoose"; //Подключение mongoose
+import {validationResult} from "express-validator";
+
+import {registerValidation} from './validations/auth.js'
 
 mongoose.connect('mongodb://localhost:27017/')
-    .then(()=>console.log('DB ok'))
+    .then(() => console.log('DB ok'))
     .catch((err) => console.log('DB error', err)); // Подключение к БД
 
 const app = express(); //Создание express приложения
@@ -14,9 +17,15 @@ app.get('/', (req, res) => {
     res.send('HelloWorld');
 });
 
-app.post('/auth/register', (req, res) => {
+app.post('/auth/register', registerValidation, (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json(errors.array());
+    }
 
-
+    res.json({
+        success: true,
+    });
 
     // console.log(req.body);
     //
