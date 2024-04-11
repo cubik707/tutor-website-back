@@ -2,7 +2,7 @@ import express from 'express'; //Подключение express
 import jwt from 'jsonwebtoken'; //Подключение jsonwebtoken
 import mongoose from "mongoose"; //Подключение mongoose
 
-mongoose.connect('mongodb+srv://admin:wwwwww@tutor-website.k6n7aer.mongodb.net/?retryWrites=true&w=majority&appName=tutor-website')
+mongoose.connect('mongodb://localhost:27017/')
     .then(()=>console.log('DB ok'))
     .catch((err) => console.log('DB error', err)); // Подключение к БД
 
@@ -14,22 +14,25 @@ app.get('/', (req, res) => {
     res.send('HelloWorld');
 });
 
-app.post('/auth/login', (req, res) => {
-    console.log(req.body);
+app.post('/auth/register', (req, res) => {
 
-    if(req.body.email === "test@test.ru"){
-        const token = jwt.sign({
-                email: req.body.email,
-                fullName: 'Влада Демидовец'
-            },
-            'secret123',
-        );
-    }
 
-    res.json({
-        success: true,
-        token,
-    });
+
+    // console.log(req.body);
+    //
+    // if(req.body.email === "test@test.ru"){
+    //     const token = jwt.sign({
+    //             email: req.body.email,
+    //             fullName: 'Влада Демидовец'
+    //         },
+    //         'secret123',
+    //     );
+    // }
+    //
+    // res.json({
+    //     success: true,
+    //     token,
+    // });
 });
 
 app.listen(4444, (err) => { //Запуск сервера
