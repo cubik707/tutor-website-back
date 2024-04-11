@@ -1,8 +1,8 @@
 import {body} from 'express-validator';
 
 export const registerValidation = [
-    body('email').isEmail(), //Проверка валидации почты
-    body('password').isLength({min: 5}), //Проверка валидации пароля
-    body('fullName').isLength({min: 3}), //Проверка валидации имени
-    body('avatarUrl').optional().isURL(), //Проверка валидации аватара
+    body('email', 'Неверный формат почты').isEmail(), //Проверка валидации почты
+    body('password', 'Пароль должен быть минимум 5 символов').isLength({min: 5}), //Проверка валидации пароля
+    body('fullName', 'Укажите имя').isLength({min: 3}), //Проверка валидации имени
+    body('avatarUrl', 'Неверная ссылка на аватарку').optional().isURL(), //Проверка валидации аватара
 ]

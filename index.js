@@ -5,6 +5,8 @@ import {validationResult} from "express-validator";
 
 import {registerValidation} from './validations/auth.js'
 
+import UserModel from './models/User'
+
 mongoose.connect('mongodb://localhost:27017/')
     .then(() => console.log('DB ok'))
     .catch((err) => console.log('DB error', err)); // Подключение к БД
@@ -43,6 +45,8 @@ app.post('/auth/register', registerValidation, (req, res) => {
     //     token,
     // });
 });
+
+
 
 app.listen(4444, (err) => { //Запуск сервера
     if (err) {
