@@ -8,7 +8,7 @@ import {registerValidation} from './validations/auth.js'
 
 import UserModel from './models/User.js'
 
-mongoose.connect('mongodb://localhost:27017/')
+mongoose.connect('mongodb://localhost:27017')
     .then(() => console.log('DB ok'))
     .catch((err) => console.log('DB error', err)); // Подключение к БД
 
@@ -18,6 +18,48 @@ app.use(express.json()); //Чтение файлов JSON с помощью expr
 
 app.get('/', (req, res) => {
     res.send('HelloWorld');
+});
+
+app.post('/auth/login', async (req, res) =>{
+    try {
+        const user = await UserModel.findOne({ email: req.body.email});
+        if(!user){
+            return res.status(404).json({
+                message: 'Пользователь не найден',
+            });
+        }
+
+        const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash);
+
+        if(!isValidPass){
+            return res.status(400).json({
+                message: 'Неверный логин или пароль',
+            });
+        }
+
+        const token = jwt.sign(
+            {
+                _id: user._id,
+            },
+            'secret123',
+            {
+                expiresIn: '30d', //Срок жизни токена
+            },
+        );
+
+        const {passwordHash, ... userData} = user._doc;
+
+        res.json({
+            ...userData,
+            token,
+        });
+
+    } catch (err){
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось авторизоваться',
+        });
+    }
 });
 
 app.post('/auth/register', registerValidation, async (req, res) => {
@@ -41,13 +83,15 @@ app.post('/auth/register', registerValidation, async (req, res) => {
 
         const user = await doc.save(); // Сохранение в БД
 
-        const token = jwt.sign({
+        const token = jwt.sign(
+            {
                 _id: user._id,
             },
             'secret123',
             {
                 expiresIn: '30d', //Срок жизни токена
-            });
+            },
+        );
 
         const {passwordHash, ... userData} = user._doc;
 
@@ -61,23 +105,6 @@ app.post('/auth/register', registerValidation, async (req, res) => {
             message: 'Не удалось зарегестрироваться',
         });
     }
-
-
-    // console.log(req.body);
-    //
-    // if(req.body.email === "test@test.ru"){
-    //     const token = jwt.sign({
-    //             email: req.body.email,
-    //             fullName: 'Влада Демидовец'
-    //         },
-    //         'secret123',
-    //     );
-    // }
-    //
-    // res.json({
-    //     success: true,
-    //     token,
-    // });
 });
 
 app.listen(4444, (err) => { //Запуск сервера
