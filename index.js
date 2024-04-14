@@ -1,7 +1,7 @@
 import express from 'express'; //Подключение express
 import mongoose from "mongoose"; //Подключение mongoose
 
-import {registerValidation} from './validations/auth.js'
+import {loginValidation, registerValidation} from './validations/authValidation.js'
 import checkAuth from './utils/checkAuth.js'
 import {getMe, login, register} from "./controllers/UserControler.js";
 
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     res.send('HelloWorld');
 });
 
-app.post('/auth/login', register);
+app.post('/auth/login', loginValidation, register);
 app.post('/auth/register', registerValidation, login);
 app.get('/auth/me', checkAuth, getMe)
 
