@@ -18,10 +18,10 @@ const ReviewSchema = new mongoose.Schema({ //Свойства схемы отз�
         required: true
     },
     comment: String,
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
-});
+},
+    {
+        timestamps: true, //Прикручиваем дату создания к сущности
+    },
+);
 
 export default mongoose.model('Review', ReviewSchema);
