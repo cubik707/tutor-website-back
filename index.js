@@ -24,8 +24,8 @@ app.get('/', (req, res) => {
     res.send('HelloWorld');
 });
 
-app.post('/auth/login', loginValidation, UserController.register);
-app.post('/auth/register', registerValidation, UserController.login);
+app.post('/auth/register',registerValidation , UserController.register);
+app.post('/auth/login', loginValidation, UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.post('/auth/tutor', tutorCreateValidation, TutorController.createTutor);

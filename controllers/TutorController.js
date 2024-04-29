@@ -7,7 +7,7 @@ export const createTutor = async (req, res) => {
             subjects: req.body.subjects,
             pricePerHour: req.body.pricePerHour,
             location: req.body.location,
-            schedule: req.body.schedule,
+            // schedule: req.body.schedule,
             rating: req.body.rating,
             qualification: req.body.qualification,
             teachingFormat: req.body.teachingFormat,

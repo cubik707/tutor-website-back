@@ -15,11 +15,11 @@ const TutorSchema = new mongoose.Schema({ //Свойства схемы репе
             required: true
         },
         location: String,
-        schedule: {
-            days: [String],
-            startTime: String,
-            endTime: String
-        },
+        // schedule: {
+        //     days: [String],
+        //     startTime: String,
+        //     endTime: String
+        // },
         rating: {
             type: Number,
             default: 0
