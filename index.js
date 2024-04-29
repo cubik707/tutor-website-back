@@ -3,8 +3,12 @@ import mongoose from "mongoose"; //Подключение mongoose
 
 import {loginValidation, registerValidation} from './validations/authValidation.js'
 import checkAuth from './utils/checkAuth.js'
+import {reviewCreateValidation} from "./validations/reviewValidation.js";
+
 import * as UserController from "./controllers/UserControler.js";
 import * as ReviewController from "./controllers/ReviewControler.js";
+import * as TutorController from "./controllers/TutorController.js"
+
 
 
 mongoose.connect('mongodb://localhost:27017')
@@ -23,9 +27,11 @@ app.post('/auth/login', loginValidation, UserController.register);
 app.post('/auth/register', registerValidation, UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
+app.post('/auth/tutor', TutorController.createTutor);
+
 // app.get('/reviews', ReviewController.getAll);
 // app.get('/reviews/:id', ReviewController.getOne);
-app.post('/reviews', ReviewController.create);
+app.post('/reviews', reviewCreateValidation, ReviewController.create);
 // app.delete('/reviews', ReviewController.remove);
 // app.patch('/reviews', ReviewController.update);
 
