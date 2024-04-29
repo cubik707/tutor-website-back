@@ -8,6 +8,7 @@ import {reviewCreateValidation} from "./validations/reviewValidation.js";
 import * as UserController from "./controllers/UserControler.js";
 import * as ReviewController from "./controllers/ReviewControler.js";
 import * as TutorController from "./controllers/TutorController.js"
+import {tutorCreateValidation} from "./validations/tutorValidation.js";
 
 
 
@@ -27,7 +28,7 @@ app.post('/auth/login', loginValidation, UserController.register);
 app.post('/auth/register', registerValidation, UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.post('/auth/tutor', TutorController.createTutor);
+app.post('/auth/tutor', tutorCreateValidation, TutorController.createTutor);
 
 // app.get('/reviews', ReviewController.getAll);
 // app.get('/reviews/:id', ReviewController.getOne);

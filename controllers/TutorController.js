@@ -3,7 +3,7 @@ import TutorModel from "../models/Tutor.js"
 export const createTutor = async (req, res) => {
     try {
         const doc = new TutorModel({
-            user: req.body.user,
+            user: req.userId,
             subjects: req.body.subjects,
             pricePerHour: req.body.pricePerHour,
             location: req.body.location,
