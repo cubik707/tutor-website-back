@@ -6,7 +6,7 @@ const ReviewSchema = new mongoose.Schema({ //Свойства схемы отз�
         ref: 'User',
         required: true
     },
-    tutor: {
+    tutorId: {
         type: Schema.Types.ObjectId,
         ref: 'Tutor',
         required: true

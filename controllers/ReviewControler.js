@@ -6,7 +6,7 @@ export const create = async (req, res) => {
             rating: req.body.rating,
             comment: req.body.comment,
             user: req.userId,
-            tutor: req.body.tutorId,
+            tutorId: req.body.tutorId,
         });
 
         // Сохраняем отзыв в базе данных
