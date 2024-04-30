@@ -15,28 +15,16 @@ export const getAll = async (req, res) => { // Получение всех от�
 
 export const getOne = async (req, res) => {
     try {
-        const reviewId = req.param.id;
-        ReviewModel.findOne(
-            {
-                _id: reviewId,
-            },
-            (err, doc) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).json({
-                        message: 'Не удалось получить отзыв'
-                    });
-                }
+        const reviewId = req.params.id;
+        const doc = await ReviewModel.findById(reviewId);
 
-                if (!doc) {
-                    return res.status(404).json({
-                        message: 'Отзыв не найден'
-                    });
-                }
+        if (!doc) {
+            return res.status(404).json({
+                message: 'Отзыв не найден'
+            });
+        }
 
-                res.json(doc);
-            },
-        )
+        res.json(doc);
     } catch (err) {
         console.log(err);
         res.status(500).json({
