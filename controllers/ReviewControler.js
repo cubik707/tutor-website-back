@@ -1,6 +1,18 @@
 import ReviewModel from "../models/Review.js";
 
-export const create = async (req, res) => {
+export const getAll = async (req, res) => { // Получение всех отзывов
+    try {
+        const reviews = await ReviewModel.find();
+        res.json(reviews);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось получить отзывы'
+        });
+    }
+}
+
+export const create = async (req, res) => { // Создание отзыва
     try {
         const doc = new ReviewModel({
             rating: req.body.rating,

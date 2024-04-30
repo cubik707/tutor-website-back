@@ -30,7 +30,7 @@ app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.post('/auth/tutor', checkAuth, tutorCreateValidation, TutorController.createTutor);
 
-// app.get('/reviews', ReviewController.getAll);
+app.get('/reviews', ReviewController.getAll);
 // app.get('/reviews/:id', ReviewController.getOne);
 app.post('/reviews', checkAuth, reviewCreateValidation, ReviewController.create);
 // app.delete('/reviews', ReviewController.remove);
