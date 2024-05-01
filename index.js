@@ -10,6 +10,7 @@ import * as UserController from "./controllers/UserControler.js";
 import * as ReviewController from "./controllers/ReviewControler.js";
 import * as TutorController from "./controllers/TutorController.js"
 import {tutorCreateValidation} from "./validations/tutorValidation.js";
+import handleValidationError from "./utils/handleValidationError.js";
 
 
 
@@ -35,8 +36,8 @@ app.use('/upload', express.static('uploads')); // Возвращение ста�
 
 
 //Авторизация и регистрация
-app.post('/auth/register',registerValidation , UserController.register);
-app.post('/auth/login', loginValidation, UserController.login);
+app.post('/auth/register', registerValidation, handleValidationError, UserController.register);
+app.post('/auth/login', loginValidation, handleValidationError, UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
@@ -51,9 +52,9 @@ app.post('/auth/tutor', checkAuth, tutorCreateValidation, TutorController.create
 //CRUD для работы с отзывами
 app.get('/reviews', ReviewController.getAll);
 app.get('/reviews/:id', ReviewController.getOne);
-app.post('/reviews', checkAuth, reviewCreateValidation, ReviewController.create);
+app.post('/reviews', checkAuth, reviewCreateValidation, handleValidationError, ReviewController.create);
 app.delete('/reviews/:id', checkAuth, ReviewController.remove);
-app.patch('/reviews/:id', checkAuth, ReviewController.update);
+app.patch('/reviews/:id', checkAuth, reviewCreateValidation, handleValidationError, ReviewController.update);
 
 //Запуск сервера
 app.listen(4444, (err) => {
