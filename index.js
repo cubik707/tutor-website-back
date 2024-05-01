@@ -2,15 +2,13 @@ import express from 'express'; //Подключение express
 import mongoose from "mongoose"; //Подключение mongoose
 import multer from "multer" // Для загрузки картинок на сервер
 
-import {loginValidation, registerValidation} from './validations/authValidation.js'
-import checkAuth from './utils/checkAuth.js'
-import {reviewCreateValidation} from "./validations/reviewValidation.js";
-
-import * as UserController from "./controllers/UserControler.js";
-import * as ReviewController from "./controllers/ReviewControler.js";
-import * as TutorController from "./controllers/TutorController.js"
-import {tutorCreateValidation} from "./validations/tutorValidation.js";
-import handleValidationError from "./utils/handleValidationError.js";
+import {
+    loginValidation,
+    registerValidation,
+    reviewCreateValidation,
+    tutorCreateValidation} from './validations/validations.js'
+import {UserController, ReviewController, TutorController} from "./controllers/index.js";
+import {handleValidationError, checkAuth} from "./utils/index.js";
 
 
 
