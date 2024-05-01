@@ -33,7 +33,7 @@ app.post('/auth/tutor', checkAuth, tutorCreateValidation, TutorController.create
 app.get('/reviews', ReviewController.getAll);
 app.get('/reviews/:id', ReviewController.getOne);
 app.post('/reviews', checkAuth, reviewCreateValidation, ReviewController.create);
-// app.delete('/reviews', ReviewController.remove);
+app.delete('/reviews/:id', checkAuth, ReviewController.remove);
 // app.patch('/reviews', ReviewController.update);
 
 app.listen(4444, (err) => { //Запуск сервера

@@ -33,6 +33,31 @@ export const getOne = async (req, res) => {
     }
 }
 
+export const remove = async (req, res) => {
+    try {
+        const reviewId = req.params.id;
+        const doc = await ReviewModel.findByIdAndDelete({
+            _id: reviewId
+        })
+
+        if (!doc) {
+            return res.status(404).json({
+                message: 'Отзыв не найден'
+            });
+        }
+
+        res.json({
+            success: true,
+        });
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось удалить отзыв'
+        });
+    }
+}
+
 export const create = async (req, res) => { // Создание отзыва
     try {
         const doc = new ReviewModel({
