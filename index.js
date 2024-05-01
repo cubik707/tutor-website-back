@@ -31,6 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 app.use(express.json()); //Чтение файлов JSON с помощью express
+app.use('/upload', express.static('uploads')); // Возвращение статических файлов
 
 
 //Авторизация и регистрация
