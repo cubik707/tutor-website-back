@@ -78,3 +78,25 @@ export const create = async (req, res) => { // Создание отзыва
         });
     }
 }
+
+export const update = async (req, res) => {
+    try {
+        const reviewId = req.params.id;
+
+        await ReviewModel.updateOne({
+            _id: reviewId
+        },{
+            rating: req.body.rating,
+            comment: req.body.comment,
+        },)
+
+        res.json({
+            success: true,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось обновить отзыв'
+        });
+    }
+}

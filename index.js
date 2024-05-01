@@ -20,23 +20,27 @@ const app = express(); //Создание express приложения
 
 app.use(express.json()); //Чтение файлов JSON с помощью express
 
-app.get('/', (req, res) => {
-    res.send('HelloWorld');
-});
+// app.get('/', (req, res) => {
+//     res.send('HelloWorld');
+// });
 
+//Авторизация и регистрация
 app.post('/auth/register',registerValidation , UserController.register);
 app.post('/auth/login', loginValidation, UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
+//Работа с репетиторами
 app.post('/auth/tutor', checkAuth, tutorCreateValidation, TutorController.createTutor);
 
+//CRUD для работы с отзывами
 app.get('/reviews', ReviewController.getAll);
 app.get('/reviews/:id', ReviewController.getOne);
 app.post('/reviews', checkAuth, reviewCreateValidation, ReviewController.create);
 app.delete('/reviews/:id', checkAuth, ReviewController.remove);
-// app.patch('/reviews', ReviewController.update);
+app.patch('/reviews/:id', checkAuth, ReviewController.update);
 
-app.listen(4444, (err) => { //Запуск сервера
+//Запуск сервера
+app.listen(4444, (err) => {
     if (err) {
         return console.log(err);
     }
