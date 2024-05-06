@@ -1,6 +1,7 @@
 import express from 'express'; //Подключение express
 import mongoose from "mongoose"; //Подключение mongoose
 import multer from "multer" // Для загрузки картинок на сервер
+import cors from 'cors'
 
 import {
     loginValidation,
@@ -30,6 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 app.use(express.json()); //Чтение файлов JSON с помощью express
+app.use(cors());
 app.use('/upload', express.static('uploads')); // Возвращение статических файлов
 
 
