@@ -3,7 +3,21 @@ import ReviewModel from "../models/Review.js";
 export const getAll = async (req, res) => { // Получение всех отзывов
     try {
         //Получаем статьи, а также у юзера берем необходимые поля
-        const reviews = await ReviewModel.find().populate("user", ["fullName", "avatarUrl"]);
+        const reviews = await ReviewModel.find()
+            .populate({
+                path: 'user',
+                select: ['fullName', 'avatarUrl']
+            })
+            .populate({
+                path: 'tutorId',
+                populate: {
+                    path: 'user',
+                    select: 'fullName'
+                },
+                select: 'fullName'
+            })
+            .exec();
+
         res.json(reviews);
     } catch (err) {
         console.log(err);
