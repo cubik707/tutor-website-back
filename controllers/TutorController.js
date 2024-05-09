@@ -27,3 +27,18 @@ export const createTutor = async (req, res) => {
         });
     }
 }
+
+export const getAllTutors = async (req, res) => {
+    try {
+        const tutors = await TutorModel.find().populate({
+            path: 'user',
+            select: ['fullName', 'avatarUrl', 'isAdmin']
+        }).exec();
+        res.status(200).json(tutors);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось получить список репетиторов',
+        });
+    }
+};

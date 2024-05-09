@@ -6,7 +6,7 @@ export const getAll = async (req, res) => { // Получение всех от�
         const reviews = await ReviewModel.find()
             .populate({
                 path: 'user',
-                select: ['fullName', 'avatarUrl']
+                select: ['fullName', 'avatarUrl', 'isAdmin']
             })
             .populate({
                 path: 'tutorId',
