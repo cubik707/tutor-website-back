@@ -11,11 +11,9 @@ export const createTutor = async (req, res) => {
             rating: req.body.rating,
             qualification: req.body.qualification,
             teachingFormat: req.body.teachingFormat,
-            videoUrl: req.body.videoUrl,
             description: req.body.description,
             resume: req.body.resume,
             certificates: req.body.certificates,
-            videoPresentation: req.body.videoPresentation
         });
 
         const tutor = await doc.save();

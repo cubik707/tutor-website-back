@@ -8,8 +8,10 @@ import {
     registerValidation,
     reviewCreateValidation,
     tutorCreateValidation} from './validations/validations.js'
-import {UserController, ReviewController, TutorController} from "./controllers/index.js";
+import {UserController, ReviewController, TutorController, TutorApplicationController} from "./controllers/index.js";
 import {handleValidationError, checkAuth} from "./utils/index.js";
+import TutorApplication from "./models/TutorApplication.js";
+import {deleteTutorApplication} from "./controllers/TutorApplicationControler.js";
 
 
 
@@ -47,8 +49,13 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
 })
 
 //Работа с репетиторами
-app.post('/auth/tutor', checkAuth, tutorCreateValidation, TutorController.createTutor);
+app.post('/tutors/create', checkAuth, tutorCreateValidation, TutorController.createTutor);
 app.get('/tutors', TutorController.getAllTutors);
+
+//Заявки на репетитора
+app.post('/tutorApplication/create', checkAuth, tutorCreateValidation, TutorApplicationController.createTutorApplication);
+app.get('/tutorApplication', checkAuth, TutorApplicationController.getAllTutorApplication);
+app.delete('/tutorApplication/:id', checkAuth, TutorApplicationController.deleteTutorApplication);
 
 //CRUD для работы с отзывами
 app.get('/reviews', ReviewController.getAll);

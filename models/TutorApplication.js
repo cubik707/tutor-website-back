@@ -1,6 +1,6 @@
 import mongoose, {Schema} from "mongoose";
 
-const TutorSchema = new mongoose.Schema({ //Свойства схемы репетитора
+const TutorApplicationSchema = new mongoose.Schema({ //Свойства схемы репетитора
         user: {
             type: Schema.Types.ObjectId,
             ref: 'User', // Ссылка на схему пользователя
@@ -31,8 +31,6 @@ const TutorSchema = new mongoose.Schema({ //Свойства схемы репе
             education: String
         },
         certificates: [String],
-
     }
 );
-
-export default mongoose.model('Tutor', TutorSchema);
+export default mongoose.model('TutorApplication', TutorApplicationSchema);
