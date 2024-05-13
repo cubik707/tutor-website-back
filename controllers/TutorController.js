@@ -1,5 +1,6 @@
 import TutorModel from "../models/Tutor.js"
 
+
 export const createTutor = async (req, res) => {
     try {
         const doc = new TutorModel({
@@ -40,3 +41,23 @@ export const getAllTutors = async (req, res) => {
         });
     }
 };
+
+export const getOne = async (req, res) => {
+    try {
+        const tutorId = req.params.id;
+        const doc = await TutorModel.findById(tutorId);
+
+        if (!doc) {
+            return res.status(404).json({
+                message: 'Репетитор не найден'
+            });
+        }
+
+        res.json(doc);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось получить информацию о репетиторе'
+        });
+    }
+}

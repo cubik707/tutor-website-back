@@ -51,6 +51,7 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
 //Работа с репетиторами
 app.post('/tutors/create', checkAuth, tutorCreateValidation, TutorController.createTutor);
 app.get('/tutors', TutorController.getAllTutors);
+app.get('/tutors/:id', TutorController.getOne);
 
 //Заявки на репетитора
 app.post('/tutorApplication/create', checkAuth, tutorCreateValidation, TutorApplicationController.createTutorApplication);
