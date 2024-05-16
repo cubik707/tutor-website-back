@@ -42,6 +42,11 @@ app.post('/auth/register', registerValidation, handleValidationError, UserContro
 app.post('/auth/login', loginValidation, handleValidationError, UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
+//Управление пользователями
+app.get('/users', checkAuth, UserController.getAll);
+app.delete('/users/:id', checkAuth, UserController.remove);
+app.patch('/users/:id', checkAuth, registerValidation, UserController.update);
+
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({
         url: `/upload/${req.file.originalname}`,
